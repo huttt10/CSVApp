@@ -17,6 +17,10 @@ namespace CSVApp
             this.csvFile = csvFile;
         }
 
+        /// <summary>
+        /// Create Record and save to CSV file
+        /// </summary>
+        /// <param name="input">Input from console, checked if is in format "STRING, INT"</param>
         public void AddNewRecord(string input)
         {
             string[] splitedInput = input.Split(',');
@@ -26,6 +30,7 @@ namespace CSVApp
             Save(record);
         }
 
+        // Save record to csv file like new line
         private void Save(Record record)
         {
             using (StreamWriter sw = new StreamWriter(csvFile, true))
@@ -36,33 +41,41 @@ namespace CSVApp
                 
                 sw.Flush();
             }
-        }        
-
-        public List<Record> CountedUsersAndMinits()
+        }
+        
+        /// <summary>
+        /// Count of one user and his minutes
+        /// </summary>
+        /// <returns>List of Record, User and his minutes</returns>
+        public List<Record> CountedUsersAndMinutes()
         {
-            var usersAndMinits = GetRecords();
+            var usersAndMinutes = GetRecords();
 
             List<Record> countedRecords = new List<Record>();
 
-            foreach (var item in usersAndMinits)
+            foreach (var item in usersAndMinutes)
             {
                 if (countedRecords.Exists(x => x.Name == item.Name))
                 {
                     var finded = countedRecords.Find(x => x.Name == item.Name);
                     var index = countedRecords.IndexOf(finded);
-                    finded.Minits += item.Minits;
+                    finded.Minutes += item.Minutes;
                     countedRecords.RemoveAt(index);
                     countedRecords.Insert(index, finded);
                 }
                 else
                 {
-                    countedRecords.Add( new Record(item.Name, item.Minits));
+                    countedRecords.Add( new Record(item.Name, item.Minutes));
                 }
             }
 
             return countedRecords;
         }        
 
+        /// <summary>
+        /// Get all Records from CSV file
+        /// </summary>
+        /// <returns>List of Record from CSV file</returns>
         public List<Record> GetRecords()
         {
                 using (StreamReader sr = new StreamReader(csvFile))
@@ -81,7 +94,11 @@ namespace CSVApp
                 }
         }               
 
-
+        /// <summary>
+        /// Check correct input format like "string, int"
+        /// </summary>
+        /// <param name="input">Input from console</param>
+        /// <returns>True || false</returns>
         public bool IsInGoodFormat(string input)
         {
             if(input == null)

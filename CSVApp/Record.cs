@@ -10,17 +10,17 @@ namespace CSVApp
     {
         public string Name { get; set; }
         
-        public int Minits { get; set; }
+        public int Minutes { get; set; }
 
-        public Record(string name, int minits)
+        public Record(string name, int minutes)
         {
             this.Name = name;
-            this.Minits = minits;
+            this.Minutes = minutes;
         }
 
         public override string ToString()
         {
-            return this.Name + ";" + this.Minits;
+            return this.Name + ";" + this.Minutes;
         }
     }
 }

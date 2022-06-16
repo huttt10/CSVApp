@@ -19,7 +19,7 @@ namespace CSVApp
 
             do
             {
-                Writer.WriteInstruction();
+                Writer.WriteInstructions();
 
                 input = Console.ReadLine();
 
